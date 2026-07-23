@@ -21,8 +21,11 @@ def test_products_data(client_with_api):
     body = response.json()
     assert "data" in body
     assert isinstance(body["data"], list)
+    ids = [item["id"] for item in body]
+    assert len(ids) == len(set(ids))
     for product in body["data"]:
         assert "id" in product
         assert "name" in product["data"]
         assert "price" in product["data"]
         assert product["project_id"] == 17222
+        
